@@ -323,35 +323,6 @@ shinyApp(ui, server)
 
 ```{r runSim, echo=FALSE}
 
-ui <- fluidPage(
-  numericInput("camiPop", "Enter starting Caminalcule population (1-100):", min = 1, max = 100, value = 1),
-  numericInput("pollPop", "Enter starting Pollard population (1-75):", min = 1, max = 75, value = 1),
-  numericInput("camiPopMultiply", "Enter Caminalcule Reproduction rate (1-10):", min = 1, max = 10, value = 1),
-  numericInput("numGenerations", "Enter the number of generations to simulate (1-100):", min = 1, max = 100, value = 1),
-  radioButtons("printArray", "Display a population array after each generation:", choices = c("Yes" = TRUE, "No" = FALSE), inline = TRUE),
-  radioButtons("printLocations", "Display coordinates for Caminalcule and Pollards each generation:", choices = c("Yes" = TRUE, "No" = FALSE), inline = TRUE),
-  actionButton("simulateButton", "Simulate"),
-  textOutput("simulationOutput")
-)
-
-server <- function(input, output, session) {
-  observeEvent(input$simulateButton, {
-    camiPop <- input$camiPop
-    pollPop <- input$pollPop
-    camiPopMultiply <- input$camiPopMultiply
-    numGenerations <- input$numGenerations
-    printArray <- input$printArray
-    printLocations <- input$printLocations
-    
-    set.seed(Sys.time())  # Set seed based on system time
-    simulationResult <- beginSim(camiPop, pollPop, camiPopMultiply, numGenerations, printArray, printLocations)
-    output$simulationOutput <- renderText({
-      paste("Simulation Result: ", simulationResult) # Adjust this based on what `beginSim` returns
-    })
-  })
-}
-
-shinyApp(ui, server)
 
 ```
 
