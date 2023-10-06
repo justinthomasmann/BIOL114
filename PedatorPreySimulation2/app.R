@@ -6,6 +6,7 @@
 #
 #    http://shiny.rstudio.com/
 #
+
 library(shiny)
 
 ui <- fluidPage(
@@ -15,9 +16,10 @@ ui <- fluidPage(
     numericInput("pollPop", "Initial Pollard Population (1-75):", 5, 1, 75),
     numericInput("camiPopMultiply", "Caminalcule Population Multiplier (1-10):", 3, 1, 10),
     numericInput("numGenerations", "Number of Generations (1-100):", 30, 1, 100),
+    numericInput("captureProbability", "Capture Probability (0-1):", 0.5, 0, 1, step = 0.01),
     checkboxInput("printArray", "Display Population Array After Each Generation", FALSE),
     actionButton("simulateBtn", "Simulate"),
-    textOutput("simulationOutput")
+    verbatimTextOutput("simulationOutput") # Using verbatimTextOutput to preserve newlines
   )
 )
 
@@ -27,6 +29,7 @@ server <- function(input, output, session) {
     pollPop <- isolate(input$pollPop)
     camiPopMultiply <- isolate(input$camiPopMultiply)
     numGenerations <- isolate(input$numGenerations)
+    captureProbability <- isolate(input$captureProbability)
     printArray <- isolate(input$printArray)
     
     results <- c(sprintf("Gen: 0 Starting Caminalcule Pop: %d Starting Pollard Pop: %d", camiPop, pollPop))
@@ -61,7 +64,7 @@ server <- function(input, output, session) {
           y <- sample(1:10, 1)
         }
         
-        if (biome[x, y] && !chosenXY[x, y]) {
+        if (biome[x, y] && !chosenXY[x, y] && runif(1) <= captureProbability) {
           camiPop <- camiPop - 1
           found <- found + 1
           chosenXY[x, y] <- TRUE
@@ -92,11 +95,10 @@ server <- function(input, output, session) {
     return(results)
   })
   
-  output$simulationOutput <- renderText({
+  output$simulationOutput <- renderPrint({
     outputText()
   })
 }
-
 
 printBiome <- function(biome, chosenXY) {
   result <- c("Printing location array of Caminalcule locations, 1 = occupied, 0 = unoccupied, X = found")
@@ -118,22 +120,4 @@ printBiome <- function(biome, chosenXY) {
 }
 
 shinyApp(ui, server)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

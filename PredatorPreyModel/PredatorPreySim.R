@@ -17,31 +17,6 @@ printBiome <- function(biome, chosenXY) {
   }
 }
 
-printCoordinates <- function(biome, chosenXY) {
-    coordinates <- character(0)
-    for (i in 1:10) {
-      for (j in 1:10) {
-        if (biome[i, j]) {
-          coordinates <- c(coordinates, sprintf("(%s,%d)", letters[i], j))
-        }
-      }
-    }
-    
-    coordinates <- paste("Printing location coordinates of Caminalcule locations: ", paste(coordinates, collapse = " "), "\n")
-    
-    pollardCoordinates <- character(0)
-    for (i in 1:10) {
-      for (j in 1:10) {
-        if (chosenXY[i, j]) {
-          pollardCoordinates <- c(pollardCoordinates, sprintf("(%s,%d)", letters[i], j))
-        }
-      }
-    }
-    
-    pollardCoordinates <- paste("Printing location coordinates of Pollard locations: ", paste(pollardCoordinates, collapse = " "), "\n")
-    
-    return(paste(coordinates, pollardCoordinates))
-  }
   
 
 beginSim <- function(camiPop, pollPop, camiPopMultiply, numGenerations, printArray, printLocations) {
@@ -108,7 +83,7 @@ pollPop <- -1
 camiPopMultiply <- -1
 numGenerations <- -1
 printArray <- FALSE
-printLocations <- FALSE
+
 
 while ((camiPop < 1) || (camiPop > 100)) {
   cat("Enter starting Caminalcule population (1-100): ")
@@ -140,15 +115,6 @@ while (TRUE) {
   } else if (userInput == "N") break
 }
 
-userInput <- "t"
-while (TRUE) {
-  cat("Would you like to display the coordinates for the Caminalcule and Pollards each generation (Y/N): ")
-  userInput <- toupper(readline())
-  if (userInput == "Y") {
-    printLocations <- TRUE
-    break
-  } else if (userInput == "N") break
-}
 
 set.seed(Sys.time())  # Set seed based on system time
 beginSim(camiPop, pollPop, camiPopMultiply, numGenerations, printArray, printLocations)
