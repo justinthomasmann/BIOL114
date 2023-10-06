@@ -8,109 +8,151 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 library(shiny)
+library(DT)
+
+printBiome <- function(biome, chosenXY) {
+  output_text <- c("Printing location array of Caminalcule locations, 1 = occupied, 0 = unoccupied, X = found\n")
+  output_text <- c(output_text, "   A B C D E F G H I J\n")
+  for (i in 1:10) {
+    if (i != 10) output_text <- c(output_text, sprintf(" %d ", i))
+    else output_text <- c(output_text, sprintf("%d ", i))
+    for (j in 1:10) {
+      if (biome[i, j] && !chosenXY[i, j]) {
+        output_text <- c(output_text, "1 ")
+      } else if (biome[i, j] && chosenXY[i, j]) {
+        output_text <- c(output_text, "X ")
+      } else {
+        output_text <- c(output_text, "0 ")
+      }
+    }
+    output_text <- c(output_text, "\n")
+  }
+  return(output_text)
+}
+
+printCoordinates <- function(biome, chosenXY) {
+  coordinates <- character(0)
+  for (i in 1:10) {
+    for (j in 1:10) {
+      if (biome[i, j]) {
+        coordinates <- c(coordinates, sprintf("(%s,%d)", letters[i], j))
+      }
+    }
+  }
+  
+  coordinates <- c("Printing location coordinates of Caminalcule locations: ", paste(coordinates, collapse = " "), "\n")
+  
+  pollardCoordinates <- character(0)
+  for (i in 1:10) {
+    for (j in 1:10) {
+      if (chosenXY[i, j]) {
+        pollardCoordinates <- c(pollardCoordinates, sprintf("(%s,%d)", letters[i], j))
+      }
+    }
+  }
+  
+  pollardCoordinates <- c("Printing location coordinates of Pollard locations: ", paste(pollardCoordinates, collapse = " "), "\n")
+  
+  return(c(coordinates, pollardCoordinates))
+}
 
 ui <- fluidPage(
-  numericInput("camiPop", "Enter starting Caminalcule population (1-100):", min = 1, max = 100, value = 1),
-  numericInput("pollPop", "Enter starting Pollard population (1-75):", min = 1, max = 75, value = 1),
-  numericInput("camiPopMultiply", "Enter Caminalcule Reproduction rate (1-10):", min = 1, max = 10, value = 1),
-  numericInput("numGenerations", "Enter the number of generations to simulate (1-100):", min = 1, max = 100, value = 1),
-  checkboxInput("printArray", "Display a population array after each generation", value = FALSE),
-  checkboxInput("printLocations", "Display coordinates for Caminalcule and Pollards each generation", value = FALSE),
-  actionButton("simulateButton", "Simulate"),
-  verbatimTextOutput("simulationOutput")
+  titlePanel("Caminalcule and Pollard Simulation"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("camiPop", "Initial Caminalcule Population:", 1, 1, 100),
+      numericInput("pollPop", "Initial Pollard Population:", 1, 1, 75),
+      numericInput("camiPopMultiply", "Caminalcule Population Multiplier:", 1, 1, 10),
+      numericInput("numGenerations", "Number of Generations:", 1, 1, 100),
+      checkboxInput("printArray", "Print Location Array", FALSE),
+      checkboxInput("printLocations", "Print Location Coordinates", FALSE),
+      actionButton("simulateBtn", "Simulate"),
+      textOutput("simulationOutput")
+    ),
+    mainPanel()
+  )
 )
 
 server <- function(input, output, session) {
-   # Define reactive values to store camiPop and pollPop
-  camiPop <- reactiveVal()
-  pollPop <- reactiveVal()
-  
-  observeEvent(input$simulateButton, {
+  observeEvent(input$simulateBtn, {
     camiPop <- input$camiPop
     pollPop <- input$pollPop
     camiPopMultiply <- input$camiPopMultiply
     numGenerations <- input$numGenerations
     printArray <- input$printArray
     printLocations <- input$printLocations
-    
-    simulationOutput <- isolate({beginSim <- function(camiPop, pollPop, camiPopMultiply, numGenerations, printArray, printLocations) {
-  cat(sprintf("Gen: 0 Starting Caminalcule Pop: %d Starting Pollard Pop: %d\n", camiPop, pollPop))
-  
-  for (index in 1:numGenerations) {
-    found <- 0
+
+    results <- character(0)
+
+    results <- c(results, sprintf("Gen: 0 Starting Caminalcule Pop: %d Starting Pollard Pop: %d\n", camiPop, pollPop))
+
+    # Initialize biome and chosenXY matrices inside the observer
     biome <- matrix(FALSE, nrow = 10, ncol = 10)
-    
-    for (cami in 1:camiPop) {
-      x <- sample(1:10, 1)
-      y <- sample(1:10, 1)
-      
-      if (!biome[x, y]) {
-        biome[x, y] <- TRUE
-      } else {
-        while (biome[x, y]) {
+    chosenXY <- matrix(FALSE, nrow = 10, ncol = 10)
+
+    for (index in 1:numGenerations) {
+      found <- 0  # Reset found for each generation
+
+      for (cami in 1:camiPop) {
+        x <- sample(1:10, 1)
+        y <- sample(1:10, 1)
+
+        if (!biome[x, y]) {
+          biome[x, y] <- TRUE
+        } else {
+          while (biome[x, y]) {
+            x <- sample(1:10, 1)
+            y <- sample(1:10, 1)
+          }
+          biome[x, y] <- TRUE
+        }
+      }
+
+      for (polly in 1:pollPop) {
+        x <- sample(1:10, 1)
+        y <- sample(1:10, 1)
+
+        while (chosenXY[x, y]) {
           x <- sample(1:10, 1)
           y <- sample(1:10, 1)
         }
-        biome[x, y] <- TRUE
-      }
-    }
-    
-    chosenXY <- matrix(FALSE, nrow = 10, ncol = 10)
-    
-    for (polly in 1:pollPop) {
-      x <- sample(1:10, 1)
-      y <- sample(1:10, 1)
-      
-      while (chosenXY[x, y]) {
-        x <- sample(1:10, 1)
-        y <- sample(1:10, 1)
-      }
-      
-      if (biome[x, y] && !chosenXY[x, y]) {
-        camiPop <- camiPop - 1
-        found <- found + 1
-        chosenXY[x, y] <- TRUE
-      } else {
-        chosenXY[x, y] <- TRUE
-      }
-    }
-    
-    camiPop <- camiPop * camiPopMultiply
-    if (camiPop < 1) camiPop <- 1
-    if (camiPop > 100) camiPop <- 100
-    
-    lostPop <- floor(pollPop / 3)
-    pollPop <- pollPop - lostPop
-    pollPop <- pollPop + found + 1
-    
-    if (pollPop > 75) pollPop <- 75
-    if (pollPop < 1) pollPop <- 1
-    
-    cat(sprintf("Gen: %d Ending Caminalcule Pop: %d Ending Pollard Pop: %d || found: %d\n", index, camiPop, pollPop, found))
-    if (printArray) printBiome(biome, chosenXY)
-    if (printLocations) printCoordinates(biome, chosenXY)
-  }
-}
 
-camiPop <- -1
-pollPop <- -1
-camiPopMultiply <- -1
-numGenerations <- -1
-printArray <- FALSE
-printLocations <- FALSE
-     
-      result <- capture.output({
-        beginSim(camiPop, pollPop, camiPopMultiply, numGenerations, printArray, printLocations)
+        if (biome[x, y] && !chosenXY[x, y]) {
+          camiPop <- camiPop - 1
+          found <- found + 1
+          chosenXY[x, y] <- TRUE
+        } else {
+          chosenXY[x, y] <- TRUE
+        }
+      }
+
+      camiPop <- camiPop * camiPopMultiply
+      if (camiPop < 1) camiPop <- 1
+      if (camiPop > 100) camiPop <- 100
+
+      lostPop <- floor(pollPop / 3)
+      pollPop <- pollPop - lostPop
+      pollPop <- pollPop + found + 1
+
+      if (pollPop > 75) pollPop <- 75
+      if (pollPop < 1) pollPop <- 1
+
+      results <- c(results, sprintf("Gen: %d Ending Caminalcule Pop: %d Ending Pollard Pop: %d || found: %d\n", index, camiPop, pollPop, found))
+      if (printArray) results <- c(results, printBiome(biome, chosenXY))
+      if (printLocations) results <- c(results, printCoordinates(biome, chosenXY))
+    }
+
+    output$simulationOutput <- renderText({
+      return(paste(results, collapse = "\n"))
+      
+      output$simulationOutput <- DT::renderDataTable({
+      DT::datatable(simulationResults, options = list(pageLength = 10))
       })
-      paste(result, collapse = "\n")
-    })
-    
-    output$simulationOutput <- renderPrint({
-      renderPrint(simulationOutput)
-    })
+  })
   })
 }
 
 shinyApp(ui, server)
+
 ```
 

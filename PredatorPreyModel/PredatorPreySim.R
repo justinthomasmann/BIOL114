@@ -18,25 +18,31 @@ printBiome <- function(biome, chosenXY) {
 }
 
 printCoordinates <- function(biome, chosenXY) {
-  cat("Printing location coordinates of Caminalcule locations(x,y)\n")
-  for (i in 1:10) {
-    for (j in 1:10) {
-      if (biome[i, j]) {
-        cat(sprintf("(%s,%d)", letters[i], j))
+    coordinates <- character(0)
+    for (i in 1:10) {
+      for (j in 1:10) {
+        if (biome[i, j]) {
+          coordinates <- c(coordinates, sprintf("(%s,%d)", letters[i], j))
+        }
       }
     }
+    
+    coordinates <- paste("Printing location coordinates of Caminalcule locations: ", paste(coordinates, collapse = " "), "\n")
+    
+    pollardCoordinates <- character(0)
+    for (i in 1:10) {
+      for (j in 1:10) {
+        if (chosenXY[i, j]) {
+          pollardCoordinates <- c(pollardCoordinates, sprintf("(%s,%d)", letters[i], j))
+        }
+      }
+    }
+    
+    pollardCoordinates <- paste("Printing location coordinates of Pollard locations: ", paste(pollardCoordinates, collapse = " "), "\n")
+    
+    return(paste(coordinates, pollardCoordinates))
   }
   
-  cat("\nPrinting location coordinates of Pollard locations(x,y)\n")
-  for (i in 1:10) {
-    for (j in 1:10) {
-      if (chosenXY[i, j]) {
-        cat(sprintf("(%s,%d)", letters[i], j))
-      }
-    }
-  }
-  cat("\n")
-}
 
 beginSim <- function(camiPop, pollPop, camiPopMultiply, numGenerations, printArray, printLocations) {
   cat(sprintf("Gen: 0 Starting Caminalcule Pop: %d Starting Pollard Pop: %d\n", camiPop, pollPop))
