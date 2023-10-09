@@ -6,7 +6,7 @@ output: html_document
 runtime: shiny
 ---
 
-![](images/Blade-tail_crop_&PredatorPreySimArt.png)
+![](images/PredatorPreySimArt.png)
 
 
 ```{r setup, echo=FALSE}
