@@ -7,7 +7,7 @@ runtime: shiny
 ---
 
 # The blade-tailed caminalcule and the shiny pollard
-![](C:\Users\jtmann\Documents\RProjects\BIOL114\PedatorPreySimulation2)
+![](images/Blade-tail_crop_&PredatorPreySimArt.png)
 
 ```{r setup, echo=FALSE}
 library(shiny)
