@@ -6,8 +6,8 @@ output: html_document
 runtime: shiny
 ---
 
-# The blade-tailed caminalcule and the shiny pollard
 ![](images/Blade-tail_crop_&PredatorPreySimArt.png)
+
 
 ```{r setup, echo=FALSE}
 library(shiny)
