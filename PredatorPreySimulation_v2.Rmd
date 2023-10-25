@@ -20,10 +20,10 @@ The best way to understand this model is to visualize how the population sizes o
 The figure above depicts a real example of the Lotka-Volterra Predator Prey relationship. Note that there are two y-axes with different scales for the population size of the predator and prey populations. 
 
 The dynamic between the two populations is relatively intuitive. 
-*As prey population (Hares) increase, predator population (Lynx) increase in response. However, the predator population growth curve lags (in time) behind that of the prey population. 
-*As a result of increasing predation (from increasing numbers of predators), the prey population size peaks and then begins to fall. 
-*The decrease in prey availability results in the predator population growth curve falling, again mirroring the trajectory of the prey population growth curve. 
-*As the predator population decreases in size, the prey population is able to increase once again, starting the cycle over. This cyclical rise and fall of the two populations is the fundamental prediction of the Lotka-Volterra Predator Prey model.  
+* As prey population (Hares) increase, predator population (Lynx) increase in response. However, the predator population growth curve lags (in time) behind that of the prey population. 
+* As a result of increasing predation (from increasing numbers of predators), the prey population size peaks and then begins to fall. 
+* The decrease in prey availability results in the predator population growth curve falling, again mirroring the trajectory of the prey population growth curve. 
+* As the predator population decreases in size, the prey population is able to increase once again, starting the cycle over. This cyclical rise and fall of the two populations is the fundamental prediction of the Lotka-Volterra Predator Prey model.  
 
 ## Shiny pollards (predator) and blade-tailed caminalcules (prey)
 
