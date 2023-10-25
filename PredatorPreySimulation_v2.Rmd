@@ -1,6 +1,6 @@
 ---
 title: "CCP5 Predator Prey Population Modeling"
-author: "Justin Mann"
+author: "Justin Mann & Camren Kephart"
 date: "2023-10-09"
 output: html_document
 runtime: shiny
@@ -47,7 +47,6 @@ Set the simulation parameters to the following values:
 
 and run the simulation. Transfer the simulated data into a spreadsheet (google sheets or excel) with three columns: Generation, Caminalcule Population Size, and Pollard Population Size. Create a line graph to visualize these data and evaluate whether the simulation produced a pattern similar to what is expected under the Lotka-Volterra model. Write a brief paragraph describing your findings. 
 
-Original simulation developed by Camren Kephart.
 
 ```{r PredatorPreySim, echo=FALSE}
 library(shiny)
