@@ -12,13 +12,18 @@ runtime: shiny
 
 The Lotka-Volterra model mathematically describes the ecological interaction between predator and prey populations. Specifically, the model describes how the size of the prey population directly influences the size of the predator population, and vice versa. 
 
-The best way to understand this model is to visualize how the population sizes of two species (y-axis) interact across time (x-axis). 
+The best way to understand this model is to visualize how the population sizes of two species (y-axes) interact across time (x-axis). 
 
-![](images/LotkaVolterraModel.png){width="70%"}
+![](images/haresandlynx.jpg){width="70%"}
 
-Image credit: Matt Strimas-Mackey ["Lotka-Volterra Predator Prey Model"](https://strimas.com/post/lotka-volterra/)
 
-The figure above depicts the basic Lotka-Volterra Predator Prey model, which has a relatively intuitive explanation. As prey populations increase, predator populations increase in response. However, the predator population growth curve lags (in time) behind that of the prey population. As a result of increasing predation (from increasing predator population size), the prey population size peaks and then begins to fall. The decrease in prey availability results in the predator population growth curve falling, again mirroring the trajectory of the prey population growth curve. As the predator population decreases in size, the prey population is able to increase once again, starting the cycle over. This cyclical rise and fall of prey and predator populations expected under the Lotka-Volterra model has been documented in many natural populations. 
+The figure above depicts a real example of the Lotka-Volterra Predator Prey relationship. Note that there are two y-axes with different scales for the population size of the predator and prey populations. 
+
+The dynamic between the two populations is relatively intuitive. 
+*As prey population (Hares) increase, predator population (Lynx) increase in response. However, the predator population growth curve lags (in time) behind that of the prey population. 
+*As a result of increasing predation (from increasing numbers of predators), the prey population size peaks and then begins to fall. 
+*The decrease in prey availability results in the predator population growth curve falling, again mirroring the trajectory of the prey population growth curve. 
+*As the predator population decreases in size, the prey population is able to increase once again, starting the cycle over. This cyclical rise and fall of the two populations is the fundamental prediction of the Lotka-Volterra Predator Prey model.  
 
 ## Shiny pollards (predator) and blade-tailed caminalcules (prey)
 
@@ -45,7 +50,7 @@ Set the simulation parameters to the following values:
 * number of generation = 50 
 * capture probability = 1 
 
-and run the simulation. Transfer the simulated data into a spreadsheet (google sheets or excel) with three columns: Generation, Caminalcule Population Size, and Pollard Population Size. Create a line graph to visualize these data and evaluate whether the simulation produced a pattern similar to what is expected under the Lotka-Volterra model. Write a brief paragraph describing your findings. 
+Run the simulation and transfer the simulated data into a spreadsheet (google sheets or excel) with three columns: Generation, Caminalcule Population Size, and Pollard Population Size. Create a line graph to visualize these data and evaluate whether the simulation produced a pattern similar to what is expected under the Lotka-Volterra model. Write a brief paragraph describing your findings. 
 
 
 ```{r PredatorPreySim, echo=FALSE}
