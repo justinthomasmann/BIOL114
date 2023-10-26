@@ -51,7 +51,7 @@ Set the simulation parameters to the following values:
 * number of generation = 50 
 * capture probability = 1 
 
-Run the simulation and transfer the simulated data into a spreadsheet (google sheets or excel) with three columns: Generation, Caminalcule Population Size, and Pollard Population Size. Create a line graph to visualize these data and evaluate whether the simulation produced a pattern similar to what is expected under the Lotka-Volterra model. Write a brief paragraph describing your findings. 
+Run the simulation and transfer the simulated data into a spreadsheet (google sheets or excel) with three columns: Generation, Caminalcule Population, and Pollard Population. Create a line graph to visualize these data and evaluate whether the simulation produced a pattern similar to what is expected under the Lotka-Volterra model. Write a brief paragraph describing your findings. 
 
 
 ```{r PredatorPreySim, echo=FALSE}
