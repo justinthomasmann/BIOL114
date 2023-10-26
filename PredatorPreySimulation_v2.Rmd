@@ -36,7 +36,7 @@ Your research team has been asked to model the effect of shiny pollard populatio
 
 This simulation models how a blade-tail population is affected by shiny pollard predation and follows these rules: 
 
-* The simulation takes place in a 10 by 10 grid of imaginary coral reef habitat which has a carrying capacity of 100 caminalcules and 75 pollards, roughly equivalent to the carrying capacity of one square kilometer of real coral reef habitat. 
+* The simulation takes place in a 10 by 10 grid of imaginary coral reef habitat which has a carrying capacity of 100 caminalcules and 75 pollards, roughly equivalent to the carrying capacity of one hectare of real coral reef habitat. 
 * The simulation begins by placing 5 blade-tails and 5 shiny pollards in random locations in the 10 by 10 grid. When a pollard is placed in a grid cell adjacent to a caminalcule, the pollard eats one caminalcule, simulating a predation event. 
 * For every caminalcule eaten, one pollard is born. But in each generation, 1/3 of the original pollard population dies. Pollards are known to have short lifespans and relatively high death rates, since not all individuals become effective predators. 
 * On average, caminalcules produce 3 offspring that survive their first year, so the caminalcule population that survives predation triples after each generation. 
