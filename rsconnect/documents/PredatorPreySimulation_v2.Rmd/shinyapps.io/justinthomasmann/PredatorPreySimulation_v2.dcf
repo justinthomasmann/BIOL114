@@ -5,7 +5,7 @@ account: justinthomasmann
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10141729
-bundleId: 7856363
+bundleId: 7861777
 url: https://justinthomasmann.shinyapps.io/PredatorPreySimulation_v2/
 version: 1
 asMultiple: FALSE
