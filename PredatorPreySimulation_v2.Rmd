@@ -8,29 +8,12 @@ runtime: shiny
 
 ![](images/PredatorPreySimArt.png){width="70%"} 
 
-## The Lotka-Volterre Predator-Prey Model
-
-The Lotka-Volterra model mathematically describes the ecological interaction between predator and prey populations. Specifically, the model describes how the size of the prey population directly influences the size of the predator population, and vice versa. 
-
-The best way to understand this model is to visualize how the population sizes of two species (y-axes) interact across time (x-axis). 
-
-![](images/haresandlynx.png){width="100%"}
-
-
-The figure above depicts a real example of the Lotka-Volterra Predator Prey relationship. Note that there are two y-axes with different scales for the population size of the predator and prey populations. 
-
-The dynamic between the two populations is relatively intuitive:
-
-* As prey population (Hares) increase, predator population (Lynx) increase in response. However, the predator population growth curve lags (in time) behind that of the prey population. 
-* As a result of increasing predation (from increasing numbers of predators), the prey population size peaks and then begins to fall. 
-* The decrease in prey availability results in the predator population growth curve falling, again mirroring the trajectory of the prey population growth curve. 
-* As the predator population decreases in size, the prey population is able to increase once again, starting the cycle over. This cyclical rise and fall of the two populations is the fundamental prediction of the Lotka-Volterra Predator Prey model.  
-
 ## Shiny pollards (predator) and blade-tailed caminalcules (prey)
 
-When formulating a conservation plan, it's important to consider the effect that predators have on the species in decline. The Caminalcule Research Team has identified the shiny pollard as the blade-tailed caminalcule's primary predator in coral reef ecosystem. Not unlike the coral grouper shown in the Blue Planet video featured in CCP1, the shiny pollard is a species of fish  that feeds on smaller fish and invertebrate prey. Ecologists in the Caminalcule Research Team are concerned that predation by shiny pollards could exacerbate the blade-tail's decline, possibly putting them at risk of extinction. 
+When formulating a conservation plan, it's important to consider the effect that predators have on the species in decline. The Caminalcule Research Team has identified the shiny pollard as the blade-tailed caminalcule's primary predator in the coral reef ecosystem. Not unlike the coral grouper shown in the Blue Planet video featured in CCP1, the shiny pollard is a species of fish  that feeds on smaller fish and invertebrate prey. Ecologists in the Caminalcule Research Team are concerned that predation by shiny pollards could exacerbate the blade-tail's decline, possibly putting them at risk of extinction. 
 
-Your research team has been asked to model the effect of shiny pollard population size on blade-tailed caminalcule population size. In the following exercise, you will assess whether the interaction between these two species produces a pattern similar to what we would expect under the Lotka-Volterra Predator Prey model. In Species Survival Portfolio Part 3, your team will run another simulation to show how your novel beneficial trait could relieve some of the predation pressure currently suppressing the blade-tail's population size.
+Your research team has been asked to model the effect of shiny pollard population size on blade-tailed caminalcule population size. In the following exercise, you will use a basic mathematical model–which accounts for reproduction rates and predation rates–to assess whether the interaction between these two species produces a pattern similar to what we would expect under the Lotka-Volterra Predator Prey model.
+
 
 ### The model:
 
@@ -126,7 +109,7 @@ server <- function(input, output, session) {
       
       lostPop <- floor(pollPop / 3)
       pollPop <- pollPop - lostPop
-      pollPop <- pollPop + found + 1
+      pollPop <- pollPop + found 
       
       if (pollPop > 75) pollPop <- 75
       if (pollPop < 1) pollPop <- 1
