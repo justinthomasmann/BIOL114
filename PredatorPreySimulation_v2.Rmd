@@ -14,7 +14,7 @@ The Lotka-Volterra model mathematically describes the ecological interaction bet
 
 The best way to understand this model is to visualize how the population sizes of two species (y-axes) interact across time (x-axis). 
 
-![](images/haresandlynx.jpg){width="70%"}
+![](images/haresandlynx.png){width="100%"}
 
 
 The figure above depicts a real example of the Lotka-Volterra Predator Prey relationship. Note that there are two y-axes with different scales for the population size of the predator and prey populations. 
